@@ -100,5 +100,6 @@ gh pr create --base develop --head minha-feature --title "Título do PR" --body 
 
 - [Mateus Xavier](mailto:mxs2@cesar.school)
 - [Samuel Araújo](mailto:ssab@cesar.school)
+- [Raphael Miranda](mailto:rrsm2@cesar.school)
 
 Sinta-se à vontade para entrar em contato para sugestões ou colaborações!
