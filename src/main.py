@@ -1,6 +1,8 @@
 import json
 import os
 
+users_db = os.path.join(os.path.dirname(__file__), 'usuariosData.json')
+
 def menu_inicial():
     print("ADOTE PET")
     print("1 - MÓDULO DO USUÁRIOS ")
