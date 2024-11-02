@@ -102,5 +102,8 @@ gh pr create --base develop --head minha-feature --title "Título do PR" --body 
 - [Samuel Araújo](mailto:ssab@cesar.school)
 - [Raphael Miranda](mailto:rrsm2@cesar.school)
 - [Alessandra Barbosa](mailto:abs4@cesar.school)
+- [Ana Sofia Moura](mailto:assm@cesar.school)
+- [Camila Teixeira](mailto:cmta@cesar.school)
+
 
 Sinta-se à vontade para entrar em contato para sugestões ou colaborações!
