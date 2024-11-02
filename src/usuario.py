@@ -1,3 +1,8 @@
+import json
+import os
+
+usersData = os.path.join(os.path.dirname(__file__), 'usuariosData.json')
+
 def menu_user():
     print("\nMENU USUÁRIOS:")
     print("1. ADICIONAR USUÁRIO")
@@ -8,4 +13,12 @@ def menu_user():
     print("6. VOLTAR AO MENU ANTERIOR")
     
 
-    
+def main(): 
+    while True:
+        opcao_inicial = int(input("Escolha uma opção:\n>>>"))
+        match opcao_inicial:
+            case(1):
+                print("Op 1")
+
+if __name__ == "__main__":
+    main()
