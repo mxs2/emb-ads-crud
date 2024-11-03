@@ -17,6 +17,15 @@ def adicionarPedido(cpf, nome, idade, animalType, raca, genero):
         json.dump(pedidos, adocaoDataArquivo, indent=4,ensure_ascii=False)
     print("😎 USUÁRIO ADICIONADO COM SUCESSO!")
 
+def excluirPedido(cpf):
+    pedidos = []
+    for pedido in pedidos:
+        if pedido[cpf] == cpf:
+            pedidos.remove(pedido)
+    with open(adocaoData, 'w') as adocaoDataArquivo:
+        json.dump(pedidos, adocaoDataArquivo, indent=4,ensure_ascii=False)
+    print("😡 USUÁRIO EXCLUÍDO COM SUCESSO!")
+    
 def menu_adotar():
     print("\nMENU PEDIDOS DE ADOÇÃO:")
     print("1. CRIAR PEDIDO DE ADOÇÃO")
@@ -38,6 +47,9 @@ def main():
             raca = input("Qual a raça desejada: ")
             genero = input("Qual o gênero desejado: ")
             adicionarPedido(cpf, nome, idade, animalType, raca, genero)
-
+        elif(op ==4):
+            print("Insira o CPF relacionado ao pedido de adoção.")
+            cpf = input(">>>")
+            excluirPedido(cpf)
 if __name__ == "__main__":
     main()
