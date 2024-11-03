@@ -2,12 +2,13 @@ import json
 import os
 
 usersData = os.path.join(os.path.dirname(__file__), 'usuariosData.json')
-
+if not os.path.exists(usersData):
+    with open(usersData, 'w') as userDataArquivo:
+        json.dump({}, userDataArquivo, indent=4)
 
 def carregar_user():
-    if not os.path.exists(usersData):
-        with open(usersData, 'w') as userDataArquivo:
-            json.dump([], userDataArquivo, indent=4)
+    with open(usersData, 'r') as usersDataArquivo:
+        return json.load(userDataArquivo)
 
 def adicionar_user(nome, idade, genero, contato, cpf):
     usuarios = carregar_user()
