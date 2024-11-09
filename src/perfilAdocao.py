@@ -26,18 +26,14 @@ def Adicionar_animal():
         "Corretamente Vacinado? ": vacinas.upper(),
         "Alguma informacao relevante? ": info_relevante
     }
-       
     if os.path.exists("data.json") and os.path.getsize("data.json") > 0:
         with open("data.json", "r") as getdata:
             data = json.load(getdata)
     else:
-        data = {}
-        
-    data[len(data)] = cadastro
-        
+        data = {}    
+    data[len(data)] = cadastro     
     with open("data.json", "w") as save:
         json.dump(data, save, indent=4)
-    
     print(f"Animal Cadastrado! O token do seu processo é: {len(data) - 1}")
 
 def ListarAnimais(): 
@@ -57,8 +53,7 @@ def ListarAnimais():
         data = json.load(view)
     print("")"""
 def _main_():
-    check = True
-    while check:
+    while True:
         print("Opções: \n --> 1 CRIAR \n --> 2 VIZUALIZAR")
         escolha= input("Digite sua escolha! --> ")      
         match escolha:
@@ -67,5 +62,5 @@ def _main_():
             case "2":
                 ListarAnimais()
             case __:
-                check = False             
+                break           
 _main_()
