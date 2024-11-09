@@ -9,14 +9,34 @@ def carregar_user():
         with open(usersData, 'w') as userDataArquivo:
             json.dump([], userDataArquivo, indent=4)
 
-def adicionar_user(nome, idade, genero, contato, cpf):
-    usuarios = carregar_user()
 
-    usuarios.append({'nome': nome, 'idade': idade, 'genero': genero, 'contato': contato, 'cpf': cpf})
+def adicionar_user(nome, idade, genero, contato, cpf):
+    users = carregar_user()
+    if users is None:
+        users = []
+    
+    users.append({'nome': nome, 'idade': idade, 'genero': genero, 'contato': contato, 'cpf': cpf})
 
     with open(usersData, 'w') as userDataArquivo:
-        json.dump(usuarios, userDataArquivo, indent=4, ensure_ascii=False)
+        json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
     print("Você foi cadastrado com sucesso :)")
+    
+    
+def listar_user():
+    users = carregar_user()
+
+    if users:
+        print("=" *50)
+        print("Lista de usuários: ")
+        print("-" *50)
+        for user in users:
+            print("*" *50)
+            print(f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, Telefone:{user['telefone']}, CPF:{user['cpf']}")
+            print("*" *50)
+            print("=" *50)
+    else:
+        print("Nenhum usuário cadastrado")
+
 
 def menu_user():
     print("\nMENU USUÁRIOS:")
@@ -30,7 +50,7 @@ def menu_user():
 
 def main(): 
     while True:
-    #nome,idade, genero e contato
+        
         menu_user()
         op= input("Escolha uma opção: ")
     
@@ -41,6 +61,12 @@ def main():
             contato=input("Digite seu telefone: ")
             cpf= input("Digite seu CPF: ")
             adicionar_user(nome,idade,genero,contato,cpf)
-        
+            
+        elif op == "2":
+            listar_user()         
+            #TÁ DANDO ERRO 
+            
+            
+            
 if __name__ == "__main__":
     main()
