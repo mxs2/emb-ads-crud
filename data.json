@@ -31,5 +31,16 @@
         "Castrado? ": "A",
         "Corretamente Vacinado? ": "A",
         "Alguma informacao relevante? ": "a"
+    },
+    "3": {
+        "Nome: ": "a",
+        "Especie: ": "a",
+        "Sexo ": "a",
+        "Raca: ": "a",
+        "Idade: ": "a",
+        "Personalidade: ": "a",
+        "Castrado? ": "A",
+        "Corretamente Vacinado? ": "A",
+        "Alguma informacao relevante? ": "a"
     }
 }
