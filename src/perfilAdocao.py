@@ -52,15 +52,37 @@ def ListarAnimais():
     with open("data.json", "r") as view:
         data = json.load(view)
     print("")"""
+
+
+
+def menu_animais():
+    print("\nMENU ANIMAIS PARA ADOÇÃO:")
+    print("1. ADICIONAR ANIMAL")
+    print("2. LISTAR ANIMAIS")
+    print("3. ATUALIZAR ANIMAL") 
+    print("4. EXCLUIR ANIMAL")
+    print("5. LISTAR UM ANIMAL")
+    print("6. VOLTAR AO MENU ANTERIOoR")
+    
 def _main_():
     while True:
-        print("Opções: \n --> 1 CRIAR \n --> 2 VIZUALIZAR")
-        escolha= input("Digite sua escolha! --> ")      
-        match escolha:
-            case "1":
-                Adicionar_animal()
-            case "2":
-                ListarAnimais()
-            case __:
-                break           
+        menu_animais();
+        op_moduloAnimal = int(input("ESCOLHA UMA OPÇÃO:\n>>>"))
+        if (op_moduloAnimal == 1):
+            print("\n<<< ADICIONAR ANIMAL SELECIONADO >>>")
+            Adicionar_animal();
+        elif (op_moduloAnimal == 2):
+            print("\n<<< LISTAR ANIMAIS SELECIONADO >>>")
+            ListarAnimais();
+        elif (op_moduloAnimal == 3):
+            print("\n<<< ATUALIZAR ANIMAL SELECIONADO >>>")
+        elif (op_moduloAnimal == 4):
+            print("\n<<< EXCLUIR ANIMAL SELECIONADO >>>")
+        elif (op_moduloAnimal == 5):
+            print("\n<<< LISTAR UM ANIMAL SELECIONADO >>>")
+        elif (op_moduloAnimal == 6):
+            print("\n<<< VOLTAR AO MENU ANTERIOR SELECIONADO >>>")
+        """elif (op_moduloAnimal ):
+            print("\nOpção Invalida. Tente Novamente!")"""
+  
 _main_()
