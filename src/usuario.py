@@ -7,7 +7,7 @@ if not os.path.exists(usersData):
         json.dump({}, userDataArquivo, indent=4)
 
 def carregar_user():
-    with open(usersData, 'r') as userDataArquivo:
+    with open(usersData, 'r') as usersDataArquivo:
         return json.load(userDataArquivo)
 
 

@@ -5,12 +5,5 @@
         "genero": "gg",
         "contato": "g",
         "cpf": "g"
-    },
-    {
-        "nome": "a",
-        "idade": "a",
-        "genero": "a",
-        "contato": "a",
-        "cpf": "a"
     }
 ]
