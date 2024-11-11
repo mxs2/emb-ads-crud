@@ -99,6 +99,20 @@ def AtualizarAnimal():
     else:
         print("\nOpção Invalida. Tente Novamente!")
 
+def ListarAnimal ():
+    if os.path.exists("data.json") and os.path.getsize("data.json") > 0:
+        with open("data.json", "r") as view:
+            data = json.load(view)
+
+        animal_id = input("Digite o número do animal que deseja listar: ")
+
+        if animal_id in data:
+            caracteristicas = [f"Animal número: {animal_id}"]
+            for x, n in data.items():
+                caracteristicas.append(f"{x} {n}")
+                print("\n".join(caracteristicas))
+                print("\r") 
+
 def menu_animais():
     print("\nMENU ANIMAIS PARA ADOÇÃO:")
     print("1. ADICIONAR ANIMAL")
@@ -120,12 +134,13 @@ def _main_():
             ListarAnimais()
         elif (op_moduloAnimal == 3):
             print("\n<<< ATUALIZAR ANIMAL SELECIONADO >>>")
-            AtualizarAnimal();
+            AtualizarAnimal()
         elif (op_moduloAnimal == 4):
             print("\n<<< EXCLUIR ANIMAL SELECIONADO >>>")
             DeletarAnimal()
         elif (op_moduloAnimal == 5):
             print("\n<<< LISTAR UM ANIMAL SELECIONADO >>>")
+            ListarAnimal()
         elif (op_moduloAnimal == 6):
             print("\n<<< VOLTAR AO MENU ANTERIOR SELECIONADO >>>")
         else:
