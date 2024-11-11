@@ -38,6 +38,41 @@ def listar_user():
     else:
         print("Nenhum usuário cadastrado")
 
+def atualizar_User(nome_antigo, novo_nome, nova_idade, novo_genero, novo_contato, novo_cpf):
+    users = carregar_user()
+
+    for user in users:
+        if user['nome'] == nome_antigo:
+            user['nome'] == novo_nome
+            user['idade'] == nova_idade
+            user['genero'] == novo_genero
+            user['contato'] == novo_contato
+            user['cpf'] == novo_cpf
+            break
+    with open(usersData, 'w') as f:
+        json.dump(users, f, indent=4, ensure_ascii=False)
+    print("USUÁRIO ATUALIZADO !!!")
+
+def exluir_User(nome):
+    users = carregar_user()
+
+    for user in users:  
+        if user['nome'] == nome:
+            users.remove(user)
+
+    with open(usersData, 'w') as f:
+        json.dump(users, f, indent=4, ensure_ascii=False)
+    print("USUÁRIO DELETADO !!!")
+
+def listar_User(nome):
+    users = carregar_user()
+
+    for user in users:
+        if user['nome'] == nome:
+            print(f"NOME: {user['nome']}, IDADE: {user['idade']}, GENERO: {user['genero']}, CONTATO: {user['contato']}, CPF: {user['cpf']}")
+    
+    else:
+        print("NENHUM USUÁRIO ENCONTRADO !!!")
 
 def menu_user():
     print("\nMENU USUÁRIOS:")
