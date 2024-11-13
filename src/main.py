@@ -2,6 +2,7 @@ from modules.usuarios import Usuarios
 from modules.animais import Animais
 from modules.adocoes import Adocoes
 
+
 def menu_inicial():
     print("Sistema de Adoção")
     print("1 - Módulo Usuários")
@@ -9,17 +10,20 @@ def menu_inicial():
     print("3 - Módulo Adoção")
     print("4 - Sair")
 
+
 def main():
     usuarios = Usuarios()
     animais = Animais()
     adocoes = Adocoes()
-    
+
     while True:
         menu_inicial()
         opcao = input("Escolha uma opção: ")
         if opcao == "1":
-            print("\n1 - Adicionar Usuário\n2 - Listar Usuários"\
-                  "\n3 - Buscar Usuário\n4 - Atualizar Usuário\n5 - Remover Usuário")
+            print(
+                "\n1 - Adicionar Usuário\n2 - Listar Usuários"
+                "\n3 - Buscar Usuário\n4 - Atualizar Usuário\n5 - Remover Usuário"
+            )
             opcao_user = input("Escolha uma opção: ")
             if opcao_user == "1":
                 nome = input("Nome: ")
@@ -44,8 +48,10 @@ def main():
                 cpf = input("CPF: ")
                 usuarios.remover(cpf)
         elif opcao == "2":
-            print("\n1 - Adicionar Animal\n2 - Listar Animais"\
-                  "\n3 - Buscar Animal\n4 - Atualizar Animal\n5 - Remover Animal")
+            print(
+                "\n1 - Adicionar Animal\n2 - Listar Animais"
+                "\n3 - Buscar Animal\n4 - Atualizar Animal\n5 - Remover Animal"
+            )
             opcao_animal = input("Escolha uma opção: ")
             if opcao_animal == "1":
                 nome = input("Nome do pet: ")
@@ -70,8 +76,10 @@ def main():
                 nome = input("Nome do pet: ")
                 animais.remover(nome)
         elif opcao == "3":
-            print("\n1 - Adicionar Pedido de Adoção\n2 - Listar Pedidos de Adoção"\
-                  "\n3 - Buscar Pedido de Adoção\n4 - Atualizar Pedido de Adoção\n5 - Remover Pedido de Adoção")
+            print(
+                "\n1 - Adicionar Pedido de Adoção\n2 - Listar Pedidos de Adoção"
+                "\n3 - Buscar Pedido de Adoção\n4 - Atualizar Pedido de Adoção\n5 - Remover Pedido de Adoção"
+            )
             opcao_pedido = input("Escolha uma opção: ")
             if opcao_pedido == "1":
                 cpf = input("CPF: ")
@@ -102,6 +110,7 @@ def main():
             break
         else:
             print("Opção inválida, tente novamente.")
+
 
 if __name__ == "__main__":
     main()

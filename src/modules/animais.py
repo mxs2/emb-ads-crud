@@ -1,15 +1,18 @@
 import json
 import os
 
+
 class Animais:
     def __init__(self):
-        self.animalData = os.path.join(os.path.dirname(__file__), './db/animalData.json')
+        self.animalData = os.path.join(
+            os.path.dirname(__file__), "./db/animalData.json"
+        )
         if not os.path.exists(self.animalData):
-            with open(self.animalData, 'w') as animalDataArquivo:
+            with open(self.animalData, "w") as animalDataArquivo:
                 json.dump({}, animalDataArquivo, indent=4)
 
     def carregar(self):
-        with open(self.animalData, 'r') as view:
+        with open(self.animalData, "r") as view:
             return json.load(view)
 
     def adicionar(self, nome, especie, genero, raca, idade):
@@ -19,9 +22,9 @@ class Animais:
             "Especie": especie,
             "Genero": genero,
             "Raca": raca,
-            "Idade": idade
+            "Idade": idade,
         }
-        with open(self.animalData, 'w') as save:
+        with open(self.animalData, "w") as save:
             json.dump(data, save, indent=4)
         print("Animal cadastrado com sucesso!")
 
@@ -46,7 +49,7 @@ class Animais:
                 m["Genero"] = genero
                 m["Raca"] = raca
                 m["Idade"] = idade
-                with open(self.animalData, 'w') as save:
+                with open(self.animalData, "w") as save:
                     json.dump(data, save, indent=4)
                 print("Animal atualizado com sucesso.")
                 return
@@ -57,7 +60,7 @@ class Animais:
         for i, m in data.items():
             if m["Nome"] == nome:
                 del data[i]
-                with open(self.animalData, 'w') as save:
+                with open(self.animalData, "w") as save:
                     json.dump(data, save, indent=4)
                 print("Animal removido com sucesso.")
                 return
