@@ -1,7 +1,9 @@
 # Projeto ADS-B
 
 ## Desafio Escolhido
-WIP (Work in Progress).
+Como desenvolver uma plataforma que conecte abrigos de animais, adotantes e voluntários,
+facilitando o processo de adoção responsável, acompanhamento pós-adoção e promoção do
+bem-estar animal?
 
 ## Licença
 
