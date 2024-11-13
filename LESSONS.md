@@ -222,6 +222,3 @@ adocao.atualizar("12345678900", "Maria Silva", 31, "Gato", "Siamês", "Macho")
 # Remover um pedido de adoção
 adocao.remover("12345678900")
 ```
-
-Este exemplo ilustra como gerenciar os dados de pedidos de adoção usando a classe `Adocoes`, que inclui tratamento de erros e feedback visual colorido para facilitar a interação com o sistema.
-```
