@@ -2,20 +2,44 @@ import json
 import os
 
 
+class Cor:
+    VERMELHO = "\033[91m"
+    VERDE = "\033[92m"
+    AMARELO = "\033[93m"
+    AZUL = "\033[94m"
+    RESET = "\033[0m"
+
+
 class Usuarios:
     def __init__(self):
         self.usersData = os.path.join(
             os.path.dirname(__file__), "./db/usuariosData.json"
         )
+        # Cria o arquivo vazio se ele não existir
         if not os.path.exists(self.usersData):
             with open(self.usersData, "w") as userDataArquivo:
                 json.dump([], userDataArquivo, indent=4)
 
     def carregar(self):
-        with open(self.usersData, "r") as usersDataArquivo:
-            return json.load(usersDataArquivo)
+        # Carrega os dados dos usuários e trata possíveis erros de leitura
+        try:
+            with open(self.usersData, "r") as usersDataArquivo:
+                return json.load(usersDataArquivo)
+        except json.JSONDecodeError:
+            print(
+                Cor.VERMELHO
+                + "Erro ao carregar dados: arquivo JSON inválido."
+                + Cor.RESET
+            )
+            return []
+
+    def salvar(self, users):
+        # Salva os dados de usuários no arquivo
+        with open(self.usersData, "w") as userDataArquivo:
+            json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
 
     def adicionar(self, nome, idade, genero, contato, cpf):
+        # Adiciona um novo usuário
         users = self.carregar()
         users.append(
             {
@@ -26,29 +50,37 @@ class Usuarios:
                 "cpf": cpf,
             }
         )
-        with open(self.usersData, "w") as userDataArquivo:
-            json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
-        print("Usuário cadastrado com sucesso!")
+        self.salvar(users)
+        print(Cor.VERDE + "✅ Usuário cadastrado com sucesso!" + Cor.RESET)
 
     def listar(self):
+        # Lista todos os usuários cadastrados
         users = self.carregar()
         if users:
+            print(Cor.AZUL + "Lista de Usuários Cadastrados:" + Cor.RESET)
             for user in users:
                 print(
-                    f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, Contato: {user['contato']}, CPF: {user['cpf']}"
+                    f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, "
+                    f"Contato: {user['contato']}, CPF: {user['cpf']}"
                 )
         else:
-            print("Nenhum usuário cadastrado.")
+            print(Cor.AMARELO + "⚠️ Nenhum usuário cadastrado." + Cor.RESET)
 
     def buscar(self, cpf):
+        # Busca um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:
-                print(f"Usuário encontrado: {user}")
+                print(Cor.VERDE + "✅ Usuário encontrado:" + Cor.RESET)
+                print(
+                    f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, "
+                    f"Contato: {user['contato']}, CPF: {user['cpf']}"
+                )
                 return
-        print("Usuário não encontrado.")
+        print(Cor.VERMELHO + "❌ Usuário não encontrado." + Cor.RESET)
 
     def atualizar(self, cpf, nome, idade, genero, contato):
+        # Atualiza os dados de um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:
@@ -56,19 +88,18 @@ class Usuarios:
                 user["idade"] = idade
                 user["genero"] = genero
                 user["contato"] = contato
-                with open(self.usersData, "w") as userDataArquivo:
-                    json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
-                print("Usuário atualizado com sucesso.")
+                self.salvar(users)
+                print(Cor.VERDE + "✅ Usuário atualizado com sucesso." + Cor.RESET)
                 return
-        print("Usuário não encontrado.")
+        print(Cor.VERMELHO + "❌ Usuário não encontrado." + Cor.RESET)
 
     def remover(self, cpf):
+        # Remove um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:
                 users.remove(user)
-                with open(self.usersData, "w") as userDataArquivo:
-                    json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
-                print("Usuário removido com sucesso.")
+                self.salvar(users)
+                print(Cor.VERDE + "✅ Usuário removido com sucesso." + Cor.RESET)
                 return
-        print("Usuário não encontrado.")
+        print(Cor.VERMELHO + "❌ Usuário não encontrado." + Cor.RESET)

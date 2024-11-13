@@ -2,66 +2,109 @@ import json
 import os
 
 
+class Cor:
+    VERMELHO = "\033[91m"
+    VERDE = "\033[92m"
+    AMARELO = "\033[93m"
+    AZUL = "\033[94m"
+    RESET = "\033[0m"
+
+
 class Animais:
     def __init__(self):
         self.animalData = os.path.join(
             os.path.dirname(__file__), "./db/animalData.json"
         )
+        # Cria o arquivo vazio caso ele não exista
         if not os.path.exists(self.animalData):
             with open(self.animalData, "w") as animalDataArquivo:
                 json.dump({}, animalDataArquivo, indent=4)
 
     def carregar(self):
-        with open(self.animalData, "r") as view:
-            return json.load(view)
+        # Carrega os dados do arquivo e trata erros de leitura
+        try:
+            with open(self.animalData, "r") as view:
+                return json.load(view)
+        except json.JSONDecodeError:
+            print(
+                Cor.VERMELHO
+                + "Erro ao carregar dados: arquivo JSON inválido."
+                + Cor.RESET
+            )
+            return {}
+
+    def salvar(self, data):
+        # Salva os dados de volta no arquivo
+        with open(self.animalData, "w") as save:
+            json.dump(data, save, indent=4, ensure_ascii=False)
 
     def adicionar(self, nome, especie, genero, raca, idade):
+        # Adiciona um novo animal com um ID único
         data = self.carregar()
-        data[str(len(data))] = {
+        novo_id = str(len(data) + 1)
+        data[novo_id] = {
             "Nome": nome,
             "Especie": especie,
             "Genero": genero,
             "Raca": raca,
             "Idade": idade,
         }
-        with open(self.animalData, "w") as save:
-            json.dump(data, save, indent=4)
-        print("Animal cadastrado com sucesso!")
+        self.salvar(data)
+        print(Cor.VERDE + "✅ Animal cadastrado com sucesso!" + Cor.RESET)
 
     def listar(self):
+        # Lista todos os animais cadastrados
         data = self.carregar()
-        for i, m in data.items():
-            print(f"Animal número {i}: {m}")
+        if data:
+            print(Cor.AZUL + "Lista de Animais Cadastrados:" + Cor.RESET)
+            for i, m in data.items():
+                print(Cor.CIANO + f"\nAnimal ID {i}:" + Cor.RESET)
+                for chave, valor in m.items():
+                    print(f"  {chave}: {valor}")
+            print(Cor.AZUL + "\nFim da Lista" + Cor.RESET)
+        else:
+            print(Cor.AMARELO + "⚠️ Nenhum animal cadastrado." + Cor.RESET)
 
     def buscar(self, nome):
+        # Busca um animal pelo nome
         data = self.carregar()
+        encontrado = False
         for i, m in data.items():
-            if m["Nome"] == nome:
-                print(f"Animal número {i}: {m}")
-                return
-        print("Animal não encontrado.")
+            if m["Nome"].lower() == nome.lower():
+                print(Cor.VERDE + f"✅ Animal encontrado (ID {i}):" + Cor.RESET)
+                for chave, valor in m.items():
+                    print(f"  {chave}: {valor}")
+                encontrado = True
+                break
+        if not encontrado:
+            print(Cor.VERMELHO + "❌ Animal não encontrado." + Cor.RESET)
 
     def atualizar(self, nome, especie, genero, raca, idade):
+        # Atualiza os dados de um animal pelo nome
         data = self.carregar()
+        atualizado = False
         for i, m in data.items():
-            if m["Nome"] == nome:
-                m["Especie"] = especie
-                m["Genero"] = genero
-                m["Raca"] = raca
-                m["Idade"] = idade
-                with open(self.animalData, "w") as save:
-                    json.dump(data, save, indent=4)
-                print("Animal atualizado com sucesso.")
-                return
-        print("Animal não encontrado.")
+            if m["Nome"].lower() == nome.lower():
+                m.update(
+                    {"Especie": especie, "Genero": genero, "Raca": raca, "Idade": idade}
+                )
+                self.salvar(data)
+                print(Cor.VERDE + "✅ Animal atualizado com sucesso." + Cor.RESET)
+                atualizado = True
+                break
+        if not atualizado:
+            print(Cor.VERMELHO + "❌ Animal não encontrado." + Cor.RESET)
 
     def remover(self, nome):
+        # Remove um animal pelo nome
         data = self.carregar()
-        for i, m in data.items():
-            if m["Nome"] == nome:
+        removido = False
+        for i, m in list(data.items()):
+            if m["Nome"].lower() == nome.lower():
                 del data[i]
-                with open(self.animalData, "w") as save:
-                    json.dump(data, save, indent=4)
-                print("Animal removido com sucesso.")
-                return
-        print("Animal não encontrado.")
+                self.salvar(data)
+                print(Cor.VERDE + "✅ Animal removido com sucesso." + Cor.RESET)
+                removido = True
+                break
+        if not removido:
+            print(Cor.VERMELHO + "❌ Animal não encontrado." + Cor.RESET)
