@@ -1,15 +1,15 @@
 import json
 import os
 
-usersData = os.path.join(os.path.dirname(__file__), 'usuariosData.json')
-if not os.path.exists(usersData):
-    with open(usersData, 'w') as userDataArquivo:
-        json.dump({}, userDataArquivo, indent=4)
+usersData = os.path.join(os.path.dirname(_file_), 'usuariosData.json')
+
 
 def carregar_user():
-    with open(usersData, 'r') as usersDataArquivo:
+    if not os.path.exists(usersData):
+        with open(usersData, 'w') as userDataArquivo:
+            json.dump([], userDataArquivo, indent=4)
+    with open(usersData, 'r') as userDataArquivo:
         return json.load(userDataArquivo)
-
 
 def adicionar_user(nome, idade, genero, contato, cpf):
     users = carregar_user()
@@ -23,56 +23,33 @@ def adicionar_user(nome, idade, genero, contato, cpf):
     print("Você foi cadastrado com sucesso :)")
     
     
-def listar_user():
+def listar_users():
     users = carregar_user()
 
     if users:
-        print("=" *50)
         print("Lista de usuários: ")
-        print("-" *50)
         for user in users:
-            print("*" *50)
-            print(f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, Telefone:{user['telefone']}, CPF:{user['cpf']}")
-            print("*" *50)
-            print("=" *50)
+            print(f"Nome: {user['nome']}, Idade: {user['idade']}, Gênero: {user['genero']}, Contato:{user['contato']}, CPF:{user['cpf']}")
     else:
         print("Nenhum usuário cadastrado")
 
-def atualizar_User(nome_antigo, novo_nome, nova_idade, novo_genero, novo_contato, novo_cpf):
+def atualizar_user(antigoNome, novoNome, novaIdade, novoGenero, novoContato, novoCpf):
     users = carregar_user()
 
     for user in users:
-        if user['nome'] == nome_antigo:
-            user['nome'] == novo_nome
-            user['idade'] == nova_idade
-            user['genero'] == novo_genero
-            user['contato'] == novo_contato
-            user['cpf'] == novo_cpf
+        if user['nome'] == antigoNome:
+            user['nome'] = novoNome
+            user['idade'] = novaIdade
+            user ['contato'] = novoContato
+            user ['genero'] = novoGenero
+            user ['cpf'] = novoCpf
+            
             break
-    with open(usersData, 'w') as f:
-        json.dump(users, f, indent=4, ensure_ascii=False)
-    print("USUÁRIO ATUALIZADO !!!")
 
-def exluir_User(nome):
-    users = carregar_user()
+    with open(usersData, 'w') as userDataArquivo:
+        json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
+    print("Usuário atualizado com sucesso")
 
-    for user in users:  
-        if user['nome'] == nome:
-            users.remove(user)
-
-    with open(usersData, 'w') as f:
-        json.dump(users, f, indent=4, ensure_ascii=False)
-    print("USUÁRIO DELETADO !!!")
-
-def listar_User(nome):
-    users = carregar_user()
-
-    for user in users:
-        if user['nome'] == nome:
-            print(f"NOME: {user['nome']}, IDADE: {user['idade']}, GENERO: {user['genero']}, CONTATO: {user['contato']}, CPF: {user['cpf']}")
-    
-    else:
-        print("NENHUM USUÁRIO ENCONTRADO !!!")
 
 def menu_user():
     print("\nMENU USUÁRIOS:")
@@ -85,11 +62,12 @@ def menu_user():
     
 
 def main(): 
+    
     while True:
         
         menu_user()
         op= input("Escolha uma opção: ")
-    
+        
         if op == "1":
             nome=input("Digite o seu nome: ")          
             idade=input("Digite sua idade: ")      
@@ -97,12 +75,21 @@ def main():
             contato=input("Digite seu telefone: ")
             cpf= input("Digite seu CPF: ")
             adicionar_user(nome,idade,genero,contato,cpf)
-            
+     
         elif op == "2":
-            listar_user()         
-            #TÁ DANDO ERRO 
-            
-            
-            
-if __name__ == "__main__":
+            listar_users()         
+        
+                        
+        elif op == "3":
+            antigoNome =input("Digite o seu antigo nome: ")
+            novoNome=input("Digite o seu novo nome: ")                                
+            novaIdade=input("Digite a sua anitga idade: ")   
+            novoGenero=input("Digite o seu novo gênero: ")
+            novoContato=input("Digite o seu novo telefone: ")
+            novoCpf= input("Digite o seu novo CPF: ")
+            atualizar_user(antigoNome, novoNome, novaIdade, novoGenero, novoContato, novoCpf)
+          
+
+    
+if _name_ == "_main_":
     main()
