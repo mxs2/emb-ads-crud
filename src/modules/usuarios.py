@@ -34,6 +34,20 @@ class Usuarios:
                 print(f"Usuário encontrado: {user}")
                 return
         print("Usuário não encontrado.")
+
+    def atualizar(self, cpf, nome, idade, genero, contato):
+        users = self.carregar()
+        for user in users:
+            if user['cpf'] == cpf:
+                user['nome'] = nome
+                user['idade'] = idade
+                user['genero'] = genero
+                user['contato'] = contato
+                with open(self.usersData, 'w') as userDataArquivo:
+                    json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
+                print("Usuário atualizado com sucesso.")
+                return
+        print("Usuário não encontrado.")
     
     def remover(self, cpf):
         users = self.carregar()

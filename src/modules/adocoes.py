@@ -36,6 +36,22 @@ class Adocoes:
             print(f"Pedido de adoção: {pedidos[cpf]}")
         else:
             print("Pedido de adoção não encontrado.")
+
+    def atualizar(self, cpf, nome, idade, animalType, raca, genero):
+        pedidos = self.carregar()
+        if cpf in pedidos:
+            pedidos[cpf] = {
+                'nome': nome,
+                'idade': idade,
+                'animal': animalType,
+                'raça': raca,
+                'genero': genero
+            }
+            with open(self.adocaoData, 'w') as adocaoDataArquivo:
+                json.dump(pedidos, adocaoDataArquivo, indent=4)
+            print("Pedido de adoção atualizado com sucesso.")
+        else:
+            print("Pedido de adoção não encontrado.")
     
     def remover(self, cpf):
         pedidos = self.carregar()

@@ -38,6 +38,20 @@ class Animais:
                 return
         print("Animal não encontrado.")
 
+    def atualizar(self, nome, especie, genero, raca, idade):
+        data = self.carregar()
+        for i, m in data.items():
+            if m["Nome"] == nome:
+                m["Especie"] = especie
+                m["Genero"] = genero
+                m["Raca"] = raca
+                m["Idade"] = idade
+                with open(self.animalData, 'w') as save:
+                    json.dump(data, save, indent=4)
+                print("Animal atualizado com sucesso.")
+                return
+        print("Animal não encontrado.")
+
     def remover(self, nome):
         data = self.carregar()
         for i, m in data.items():
