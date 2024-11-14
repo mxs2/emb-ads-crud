@@ -15,13 +15,11 @@ class Usuarios:
         self.usersData = os.path.join(
             os.path.dirname(__file__), "./db/usuariosData.json"
         )
-        # Cria o arquivo vazio se ele não existir
         if not os.path.exists(self.usersData):
             with open(self.usersData, "w") as userDataArquivo:
                 json.dump([], userDataArquivo, indent=4)
 
     def carregar(self):
-        # Carrega os dados dos usuários e trata possíveis erros de leitura
         try:
             with open(self.usersData, "r") as usersDataArquivo:
                 return json.load(usersDataArquivo)
@@ -34,12 +32,10 @@ class Usuarios:
             return []
 
     def salvar(self, users):
-        # Salva os dados de usuários no arquivo
         with open(self.usersData, "w") as userDataArquivo:
             json.dump(users, userDataArquivo, indent=4, ensure_ascii=False)
 
     def adicionar(self, nome, idade, genero, contato, cpf):
-        # Adiciona um novo usuário
         users = self.carregar()
         users.append(
             {
@@ -54,7 +50,6 @@ class Usuarios:
         print(Cor.VERDE + "✅ Usuário cadastrado com sucesso!" + Cor.RESET)
 
     def listar(self):
-        # Lista todos os usuários cadastrados
         users = self.carregar()
         if users:
             print(Cor.AZUL + "Lista de Usuários Cadastrados:" + Cor.RESET)
@@ -67,7 +62,6 @@ class Usuarios:
             print(Cor.AMARELO + "⚠️ Nenhum usuário cadastrado." + Cor.RESET)
 
     def buscar(self, cpf):
-        # Busca um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:
@@ -80,7 +74,6 @@ class Usuarios:
         print(Cor.VERMELHO + "❌ Usuário não encontrado." + Cor.RESET)
 
     def atualizar(self, cpf, nome, idade, genero, contato):
-        # Atualiza os dados de um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:
@@ -94,7 +87,6 @@ class Usuarios:
         print(Cor.VERMELHO + "❌ Usuário não encontrado." + Cor.RESET)
 
     def remover(self, cpf):
-        # Remove um usuário pelo CPF
         users = self.carregar()
         for user in users:
             if user["cpf"] == cpf:

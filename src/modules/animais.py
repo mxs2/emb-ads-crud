@@ -15,13 +15,11 @@ class Animais:
         self.animalData = os.path.join(
             os.path.dirname(__file__), "./db/animalData.json"
         )
-        # Cria o arquivo vazio caso ele não exista
         if not os.path.exists(self.animalData):
             with open(self.animalData, "w") as animalDataArquivo:
                 json.dump({}, animalDataArquivo, indent=4)
 
     def carregar(self):
-        # Carrega os dados do arquivo e trata erros de leitura
         try:
             with open(self.animalData, "r") as view:
                 return json.load(view)
@@ -34,12 +32,10 @@ class Animais:
             return {}
 
     def salvar(self, data):
-        # Salva os dados de volta no arquivo
         with open(self.animalData, "w") as save:
             json.dump(data, save, indent=4, ensure_ascii=False)
 
     def adicionar(self, nome, especie, genero, raca, idade):
-        # Adiciona um novo animal com um ID único
         data = self.carregar()
         novo_id = str(len(data) + 1)
         data[novo_id] = {
@@ -53,7 +49,6 @@ class Animais:
         print(Cor.VERDE + "✅ Animal cadastrado com sucesso!" + Cor.RESET)
 
     def listar(self):
-        # Lista todos os animais cadastrados
         data = self.carregar()
         if data:
             print(Cor.AZUL + "Lista de Animais Cadastrados:" + Cor.RESET)
@@ -66,7 +61,6 @@ class Animais:
             print(Cor.AMARELO + "⚠️ Nenhum animal cadastrado." + Cor.RESET)
 
     def buscar(self, nome):
-        # Busca um animal pelo nome
         data = self.carregar()
         encontrado = False
         for i, m in data.items():
@@ -80,7 +74,6 @@ class Animais:
             print(Cor.VERMELHO + "❌ Animal não encontrado." + Cor.RESET)
 
     def atualizar(self, nome, especie, genero, raca, idade):
-        # Atualiza os dados de um animal pelo nome
         data = self.carregar()
         atualizado = False
         for i, m in data.items():
@@ -96,7 +89,6 @@ class Animais:
             print(Cor.VERMELHO + "❌ Animal não encontrado." + Cor.RESET)
 
     def remover(self, nome):
-        # Remove um animal pelo nome
         data = self.carregar()
         removido = False
         for i, m in list(data.items()):

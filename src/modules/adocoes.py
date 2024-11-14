@@ -15,13 +15,11 @@ class Adocoes:
         self.adocaoData = os.path.join(
             os.path.dirname(__file__), "./db/adocaoData.json"
         )
-        # Cria o arquivo vazio se ele não existir
         if not os.path.exists(self.adocaoData):
             with open(self.adocaoData, "w") as adocaoDataArquivo:
                 json.dump({}, adocaoDataArquivo, indent=4)
 
     def carregar(self):
-        # Carrega os dados de adoção e trata possíveis erros de leitura
         try:
             with open(self.adocaoData, "r") as adocaoDataArquivo:
                 return json.load(adocaoDataArquivo)
@@ -34,12 +32,10 @@ class Adocoes:
             return {}
 
     def salvar(self, pedidos):
-        # Salva os dados de pedidos de adoção no arquivo
         with open(self.adocaoData, "w") as adocaoDataArquivo:
             json.dump(pedidos, adocaoDataArquivo, indent=4, ensure_ascii=False)
 
     def adicionar(self, cpf, nome, idade, animalType, raca, genero):
-        # Adiciona um pedido de adoção
         pedidos = self.carregar()
         pedidos[cpf] = {
             "nome": nome,
@@ -52,7 +48,6 @@ class Adocoes:
         print(Cor.VERDE + "✅ Pedido de adoção adicionado com sucesso!" + Cor.RESET)
 
     def listar(self):
-        # Lista todos os pedidos de adoção
         pedidos = self.carregar()
         if pedidos:
             print(Cor.AZUL + "Lista de Pedidos de Adoção:" + Cor.RESET)
@@ -62,7 +57,6 @@ class Adocoes:
             print(Cor.AMARELO + "⚠️ Nenhum pedido de adoção encontrado." + Cor.RESET)
 
     def buscar(self, cpf):
-        # Busca um pedido de adoção pelo CPF
         pedidos = self.carregar()
         if cpf in pedidos:
             print(Cor.VERDE + "✅ Pedido de adoção encontrado:" + Cor.RESET)
@@ -71,7 +65,6 @@ class Adocoes:
             print(Cor.VERMELHO + "❌ Pedido de adoção não encontrado." + Cor.RESET)
 
     def atualizar(self, cpf, nome, idade, animalType, raca, genero):
-        # Atualiza um pedido de adoção pelo CPF
         pedidos = self.carregar()
         if cpf in pedidos:
             pedidos[cpf] = {
@@ -87,7 +80,6 @@ class Adocoes:
             print(Cor.VERMELHO + "❌ Pedido de adoção não encontrado." + Cor.RESET)
 
     def remover(self, cpf):
-        # Remove um pedido de adoção pelo CPF
         pedidos = self.carregar()
         if cpf in pedidos:
             del pedidos[cpf]
