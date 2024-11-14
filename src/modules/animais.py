@@ -53,7 +53,7 @@ class Animais:
         if data:
             print(Cor.AZUL + "Lista de Animais Cadastrados:" + Cor.RESET)
             for i, m in data.items():
-                print(Cor.CIANO + f"\nAnimal ID {i}:" + Cor.RESET)
+                print(Cor.AZUL + f"\nAnimal ID {i}:" + Cor.RESET)
                 for chave, valor in m.items():
                     print(f"  {chave}: {valor}")
             print(Cor.AZUL + "\nFim da Lista" + Cor.RESET)
